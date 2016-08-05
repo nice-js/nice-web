@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    bundle: './src/main.js',
+    bundle: './src/main.jsx',
     vendor: ['react', 'react-dom', 'redux', 'axios']
   },
   output: {

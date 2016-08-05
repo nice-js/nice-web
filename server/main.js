@@ -2,29 +2,33 @@ import Koa from 'koa'
 import render from 'koa-swig'
 import path from 'path'
 import logger from 'koa-logger'
+import Debug from 'debug'
+import serve from 'koa-static'
+import reactServerRender from './middlewares/reactServerRender'
+import createMemoryHistory from 'history/lib/createMemoryHistory'
+import configureStore from '../src/store/configureStore'
+
 import routes from './routes'
 import webpack from '../webpack'
-import Debug from 'debug'
+import createRoutes from '../src/routes'
 
 const debug = Debug('app:server:main')
 const app = new Koa()
 
-// ========================================================
-//  测试环境webpack的集成
-// ========================================================
+// apply webpack middleare
 if (app.env === 'development') {
   webpack(app)
+
+  // apply static server
+  app.use(serve(path.join(__dirname, '../public')))
+} else {
+  app.use(serve(path.join(__dirname, '../build')))
 }
 
-// ========================================================
-//  Koa日志的中间件集成
-// ========================================================
+// apply koa logger
 app.use(logger())
 
-// ========================================================
-//  Koa日志中间件集成
-//  模板缓存说明: 模板不适用缓存，修改模板不用重新启动，其他环节进行缓存如果修改需要重启服务
-// ========================================================
+// apply swig view engine
 app.context.render = render({
   root: path.join(__dirname, 'views'),
   autoescape: true,
@@ -32,15 +36,12 @@ app.context.render = render({
   ext: 'html'
 })
 
-// ========================================================
-//  Koa静态资源中间件集成
-// ========================================================
-app.use(require('koa-static')(path.join(__dirname, '../build')))
-app.use(require('koa-static')(path.join(__dirname, '../public')))
+// apply react server render
+const history = createMemoryHistory()
+const store = configureStore({}, history)
+app.use(reactServerRender(createRoutes(history), store))
 
-// ========================================================
-//  Koa路由中间件集成
-// ========================================================
+// apply routes
 app.use(routes())
 
 const PORT = process.env.PORT || 8000

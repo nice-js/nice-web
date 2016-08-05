@@ -9,22 +9,27 @@
     "react",
     "promise"
   ],
+  "ecmaVersion": 6,
   "env"     : {
-    "browser" : true
+    "es6": true,
+    "node": true
+  },
+  "ecmaFeatures": {
+    "spread": true
   },
   "globals" : {
     "__DEV__"      : false,
     "__PROD__"     : false,
-    "__DEBUG__"    : false,
-    "__COVERAGE__" : false,
-    "__BASENAME__" : false
+    "__DEBUG__"    : false
   },
   "rules": {
     "semi" : [2, "never"],
     "max-len": [2, 120, 2],
+    "react/jsx-space-before-closing": 0,
     "generator-star-spacing": 0,
     "space-before-function-paren": 0,
     "babel/generator-star-spacing": 0,
+    "react/jsx-indent": 0,
     "jsx-quotes": [2, "prefer-single"]
   }
 }

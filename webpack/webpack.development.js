@@ -5,7 +5,7 @@ const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr'
 
 module.exports = {
   entry: {
-    bundle: [path.join(__dirname, '../src/main.js'), hotMiddlewareScript],
+    bundle: [path.join(__dirname, '../src/main.jsx'), hotMiddlewareScript],
     vendor: ['react', 'react-dom', 'classnames', 'redux', 'axios']
   },
   output: {
