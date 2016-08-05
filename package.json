@@ -1,0 +1,66 @@
+{
+  "name": "nice-web",
+  "version": "1.0.0",
+  "description": "react redux react-router server render",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack --config ./webpack/webpack.production.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nick-js/nick-web.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "react-router",
+    "server",
+    "render"
+  ],
+  "author": "liangyali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nick-js/nick-web/issues"
+  },
+  "homepage": "https://github.com/nick-js/nick-web#readme",
+  "dependencies": {
+    "axios": "^0.13.1",
+    "babel-core": "6.3.15",
+    "babel-runtime": "^6.11.6",
+    "classnames": "^2.2.5",
+    "debug": "^2.2.0",
+    "koa": "^1.2.1",
+    "koa-logger": "^1.3.0",
+    "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0",
+    "koa-swig": "^2.2.0",
+    "koa-webpack-dev-middleware": "^1.2.1",
+    "koa-webpack-hot-middleware": "^1.0.3",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "redux": "^3.5.2",
+    "require-dir": "^0.3.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.0.0-beta.6",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.12.0",
+    "babel-preset-airbnb": "^1.1.1",
+    "babel-preset-es2015": "6.3.13",
+    "babel-preset-react": "6.3.13",
+    "babel-preset-stage-0": "6.3.13",
+    "copy-webpack-plugin": "^3.0.1",
+    "eslint": "^3.0.1",
+    "eslint-config-standard": "^5.1.0",
+    "eslint-config-standard-react": "^3.0.0",
+    "eslint-plugin-babel": "^3.2.0",
+    "eslint-plugin-promise": "^2.0.0",
+    "eslint-plugin-react": "^6.0.0",
+    "eslint-plugin-standard": "^2.0.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.13.1",
+    "webpack-hot-middleware": "^2.12.2"
+  }
+}
