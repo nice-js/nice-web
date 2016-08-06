@@ -10,10 +10,14 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <div>
-          <Link to={'/home'}>home</Link>
-          <Link to={'/about'}>home</Link>
-        </div>
+        <ul className='nav nav-tabs'>
+          <li role='presentation'>
+            <Link to={'/home'} className='active'>home</Link>
+          </li>
+          <li >
+            <Link to={'/about'}>about</Link>
+          </li>
+        </ul>
         Hello
       </div>
     )

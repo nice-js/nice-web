@@ -7,8 +7,19 @@ module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
     bundle: './src/main.jsx',
-    vendor: ['react', 'react-dom', 'redux', 'axios']
+    vendor: [
+      'react',
+      'react-dom',
+      'history',
+      'react-router',
+      'redux',
+      'react-redux',
+      'axios',
+      'promise-es6',
+      'react-router-redux'
+    ]
   },
+  devtool: 'source-map',
   output: {
     path: 'build/',
     filename: 'js/[name].js'
@@ -46,7 +57,7 @@ module.exports = {
     loaders: [{
       test: /\.js|jsx$/,
       exclude: /(node_modules|bower_components)/,
-      loaders: ['react-hot', 'babel']
+      loaders: ['babel']
     }, {
       test: /\.css|less$/,
       loader: ExtractTextPlugin.extract(

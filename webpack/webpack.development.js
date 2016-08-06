@@ -14,6 +14,7 @@ module.exports = {
     publicPath: '/'
   },
   watch: true,
+  devtool: 'source-map',
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(
       /* chunkName= */
