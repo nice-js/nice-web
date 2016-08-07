@@ -7,10 +7,17 @@ import serve from 'koa-static'
 import reactServerRender from './middlewares/reactServerRender'
 import createMemoryHistory from 'history/lib/createMemoryHistory'
 import configureStore from '../src/store/configureStore'
+import hook from 'css-modules-require-hook'
 
 import routes from './routes'
 import webpack from '../webpack'
 import createRoutes from '../src/routes'
+
+
+hook({
+  generateScopedName: '[path]_[name]_[local]_[hash:base64:5]',
+  extensions: ['.less']
+})
 
 const debug = Debug('app:server:main')
 const app = new Koa()

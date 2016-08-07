@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
+import styles from './style.css'
 
 class Home extends Component {
   static fetchData() {
@@ -18,7 +19,9 @@ class Home extends Component {
             <Link to={'/about'}>about</Link>
           </li>
         </ul>
-        Hello
+        <div className={styles.body}>
+Home
+        </div>
       </div>
     )
   }

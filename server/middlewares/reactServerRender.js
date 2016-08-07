@@ -40,10 +40,9 @@ const _renderComponents = (props, store) => {
 export default(routes, store, options = {}) => {
   return function * (next) {
     const history = createMemoryHistory()
-    const location = createLocation(this.url)
 
     try {
-      const route = yield matchRoutes({routes, location})
+      const route = yield matchRoutes({routes, location: this.url})
       const {redirectLocation, renderProps} = route
 
       // redirect
