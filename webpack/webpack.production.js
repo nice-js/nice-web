@@ -1,7 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
+const precss = require('precss')
+const autoprefixer = require('autoprefixer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -21,10 +24,18 @@ module.exports = {
   },
   devtool: 'source-map',
   output: {
-    path: 'build/',
-    filename: 'js/[name].js'
+    path: path.join(__dirname, '../build'),
+    filename: 'js/[name].[hash:16].js',
+    publicPath: '/'
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.html',
+      filename: '../server/views/index.html',
+      minify: {
+        collapseWhitespace: true
+      }
+    }),
     new CopyWebpackPlugin([{
       from: {
         glob: './public/'
@@ -41,14 +52,14 @@ module.exports = {
       /* chunkName= */
       'vendor',
       /* filename= */
-      'js/vendor.js'),
+      'js/vendor.[hash:16].js'),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       }
     }),
-    new ExtractTextPlugin('css/bundle.css')
+    new ExtractTextPlugin('css/bundle.[hash:16].css')
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -63,10 +74,14 @@ module.exports = {
       loader: ExtractTextPlugin.extract(
         'style?sourceMap',
         'css?modules&importLoaders=1&' +
-        'localIdentName=[path]_[name]_[local]_[hash:base64:5]!autoprefixer?browsers=last 2 version!less?sourceMap', {
+        'localIdentName=[path]_[name]_[local]_[hash:base64:5]' +
+        '!postcss-loader!less?sourceMap', {
           publicPath: './build'
         }
       )
     }]
+  },
+  postcss: function () {
+    return [precss, autoprefixer];
   }
 }

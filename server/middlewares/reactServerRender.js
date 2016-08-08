@@ -53,7 +53,7 @@ export default(routes, store, options = {}) => {
       // render props
       if (renderProps) {
         yield getFetchDataPromise(renderProps, store, history)
-        const reduxState = JSON.stringify(store.getState())
+        const reduxState = store.getState()
         const html = _renderComponents(renderProps, store)
         yield this.render(options.view || 'index', {html, reduxState})
         return

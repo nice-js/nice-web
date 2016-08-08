@@ -1,5 +1,9 @@
 const path = require('path')
 const webpack = require('webpack')
+const precss = require('precss')
+const autoprefixer = require('autoprefixer')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 
 const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr'
 
@@ -10,17 +14,26 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '../build'),
-    filename: 'js/[name].js',
+    filename: 'js/[name].[hash:16].js',
     publicPath: '/'
   },
   watch: true,
   devtool: 'source-map',
   plugins: [
+    new HtmlWebpackPlugin({
+      alwaysWriteToDisk: true,
+      template: 'src/index.html',
+      filename: '../server/views/index.html',
+      minify: {
+        collapseWhitespace: false
+      }
+    }),
+    new HtmlWebpackHarddiskPlugin(),
     new webpack.optimize.CommonsChunkPlugin(
       /* chunkName= */
       'vendor',
       /* filename= */
-      'js/vendor.js'),
+      'js/vendor.[hash:16].js'),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
@@ -38,8 +51,11 @@ module.exports = {
       loaders: [
         'style?sourceMap',
         'css?sourceMap&modules&importLoaders=1&' +
-        'localIdentName=[path]_[name]_[local]_[hash:base64:5]!less'
+        'localIdentName=[path]_[name]_[local]_[hash:base64:5]!postcss-loader!less?sourceMap'
       ]
     }]
+  },
+  postcss: function () {
+    return [precss, autoprefixer]
   }
 }
