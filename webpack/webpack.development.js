@@ -38,7 +38,7 @@ module.exports = {
       loaders: [
         'style?sourceMap',
         'css?sourceMap&modules&importLoaders=1&' +
-        'localIdentName=[path]_[name]_[local]_[hash:base64:5]!autoprefixer?browsers=last 2 version!less'
+        'localIdentName=[path]_[name]_[local]_[hash:base64:5]!less'
       ]
     }]
   }

@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
-import styles from './style.css'
+import styles from './style.less'
 
 class Home extends Component {
   static fetchData() {
-    console.log('Hello')
     return Promise.resolve(10)
   }
 
@@ -20,7 +19,7 @@ class Home extends Component {
           </li>
         </ul>
         <div className={styles.body}>
-Home
+          Home
         </div>
       </div>
     )

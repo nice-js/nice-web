@@ -1,6 +1,5 @@
 import {RouterContext, match} from 'react-router'
 import createMemoryHistory from 'history/lib/createMemoryHistory'
-import createLocation from 'history/lib/createLocation'
 import ReactDOMServer from 'react-dom/server'
 import React from 'react'
 import {Provider} from 'react-redux'
