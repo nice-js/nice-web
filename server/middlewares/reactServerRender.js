@@ -3,6 +3,7 @@ import createMemoryHistory from 'history/lib/createMemoryHistory'
 import ReactDOMServer from 'react-dom/server'
 import React from 'react'
 import {Provider} from 'react-redux'
+import Helmet from 'react-helmet'
 
 // get component fetchData promise
 const getFetchDataPromise = (renderProps, store, history) => {
@@ -55,7 +56,12 @@ export default(routes, store, options = {}) => {
         yield getFetchDataPromise(renderProps, store, history)
         const reduxState = store.getState()
         const html = _renderComponents(renderProps, store)
-        yield this.render(options.view || 'index', {html, reduxState})
+        const head = Helmet.rewind()
+        yield this.render(options.view || 'index', {
+          __body: html,
+          reduxState,
+          head
+        })
         return
       }
     } catch (error) {

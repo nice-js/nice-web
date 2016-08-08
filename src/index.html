@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    {{head.title}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-    <title>{{htmlWebpackPlugin.options.title}}</title>
+    {{head.meta}}
     <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
@@ -20,10 +21,11 @@
     <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">
+    {{head.link}}
   </head>
   <body>
     <div id="root">
-      {{html|safe}}
+      {{__body|safe}}
     </div>
   </body>
 </html>

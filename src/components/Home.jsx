@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 import styles from './style.less'
+import Helmet from 'react-helmet'
 
 class Home extends Component {
   static fetchData() {
@@ -10,6 +11,15 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <Helmet title='首页' meta={[
+          {
+            'name': 'description',
+            'content': 'test application'
+          }, {
+            'property': 'og:type',
+            'content': 'article'
+          }
+        ]}/>
         <ul className='nav nav-tabs'>
           <li role='presentation'>
             <Link to={'/home'} className='active'>home</Link>
