@@ -82,6 +82,6 @@ module.exports = {
     }]
   },
   postcss: function () {
-    return [precss, autoprefixer];
+    return [precss, autoprefixer]
   }
 }

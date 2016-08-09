@@ -14,6 +14,7 @@ export default () => {
   // index
   router.get('/app/*', controllers.home.index)
   router.get('/app', controllers.home.index)
+  router.get('/api/blogs', controllers.blogs.index)
 
   return router.routes()
 }

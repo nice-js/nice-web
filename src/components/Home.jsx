@@ -1,11 +1,20 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router'
 import styles from './style.less'
 import Helmet from 'react-helmet'
 
 class Home extends Component {
-  static fetchData() {
-    return Promise.resolve(10)
+
+  componentDidMount() {
+    this.props.fetchBlogs()
+  }
+
+  renderItems(items) {
+    return items.map((item) => {
+      return (
+        <li key={item.name}>{item.name}</li>
+      )
+    })
   }
 
   render() {
@@ -31,9 +40,17 @@ class Home extends Component {
         <div className={styles.body}>
           Home
         </div>
+        <ul>
+          {this.renderItems(this.props.blogs.dataSource.items || [])}
+        </ul>
       </div>
     )
   }
+}
+
+Home.propTypes = {
+  blogs: PropTypes.object.isRequired,
+  fetchBlogs: PropTypes.func.isRequired
 }
 
 export default Home

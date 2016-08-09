@@ -1,0 +1,2 @@
+export const REQUEST_BLOGS = 'REQUEST_BLOGS'
+export const RECEIVE_BLOGS = 'RECEIVE_BLOGS'

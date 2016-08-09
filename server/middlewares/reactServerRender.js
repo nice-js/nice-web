@@ -1,16 +1,21 @@
 import {RouterContext, match} from 'react-router'
-import createMemoryHistory from 'history/lib/createMemoryHistory'
 import ReactDOMServer from 'react-dom/server'
 import React from 'react'
 import {Provider} from 'react-redux'
 import Helmet from 'react-helmet'
 
 // get component fetchData promise
-const getFetchDataPromise = (renderProps, store, history) => {
-  const {query, params} = renderProps
-  const component = renderProps.components[renderProps.components.length - 1]
+const _getFetchDataPromise = (renderProps, store) => {
+  const {query, params, location} = renderProps
+  let component = renderProps.components[renderProps.components.length - 1]
+
+  // if WrappedComponent
+  if (component.WrappedComponent) {
+    component = component.WrappedComponent
+  }
+
   return component.fetchData
-    ? component.fetchData({query, params, store, history})
+    ? component.fetchData({query, params, store, location})
     : Promise.resolve()
 }
 
@@ -32,17 +37,18 @@ const matchRoutes = ({routes, location}) => new Promise((resolve, reject) => {
 // render components
 const _renderComponents = (props, store) => {
   return ReactDOMServer.renderToStaticMarkup(
-    <Provider store={store}><RouterContext {...props}/></Provider>
+    <Provider store={store}>
+      <RouterContext {...props}/>
+    </Provider >
   )
 }
 
 // middleware
 export default(routes, store, options = {}) => {
   return function * (next) {
-    const history = createMemoryHistory()
-
     try {
-      const route = yield matchRoutes({routes, location: this.url})
+      // match react route
+      const route = yield matchRoutes({routes, location: this.originalUrl})
       const {redirectLocation, renderProps} = route
 
       // redirect
@@ -53,13 +59,23 @@ export default(routes, store, options = {}) => {
 
       // render props
       if (renderProps) {
-        yield getFetchDataPromise(renderProps, store, history)
-        const reduxState = store.getState()
+        // ensure static fetchData run
+        const fetchData = _getFetchDataPromise(renderProps, store)
+        if (!fetchData) {
+          this.throw(500, 'please check your static function "fetchData" return is a promise?')
+        }
+        yield fetchData
+
+        const initialState = store.getState()
         const html = _renderComponents(renderProps, store)
+
+        // title link meta init
         const head = Helmet.rewind()
+
+        // render view
         yield this.render(options.view || 'index', {
           __body: html,
-          reduxState,
+          state: initialState,
           head
         })
         return
