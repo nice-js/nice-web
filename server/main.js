@@ -4,7 +4,7 @@ import path from 'path'
 import logger from 'koa-logger'
 import Debug from 'debug'
 import serve from 'koa-static'
-import reactServerRender from './middlewares/reactServerRender'
+import reactReduxServerRender from 'koa-react-redux-server-render'
 import createMemoryHistory from 'history/lib/createMemoryHistory'
 import configureStore from '../src/store/configureStore'
 import routes from './routes'
@@ -37,8 +37,11 @@ app.context.render = render({
 
 // apply react server render
 const history = createMemoryHistory()
-const store = configureStore({}, history)
-app.use(reactServerRender(createRoutes(history), store))
+app.use(reactReduxServerRender(createRoutes(history), () => {
+  return configureStore({}, history)
+}, function* (models) {
+  yield this.render('index', models)
+}))
 
 // apply routes
 app.use(routes())
