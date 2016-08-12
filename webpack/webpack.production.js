@@ -5,6 +5,7 @@ const autoprefixer = require('autoprefixer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const localIdentName = require('./constants').localIdentName
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -74,7 +75,7 @@ module.exports = {
       loader: ExtractTextPlugin.extract(
         'style?sourceMap',
         'css?modules&importLoaders=1&' +
-        'localIdentName=[path]_[name]_[local]_[hash:base64:5]' +
+        'localIdentName=' + localIdentName +
         '!postcss-loader!less?sourceMap', {
           publicPath: './build'
         }

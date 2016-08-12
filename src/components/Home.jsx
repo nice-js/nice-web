@@ -18,11 +18,9 @@ class Home extends Component {
   }
 
   render() {
-
-    console.log(styles.body)
     return (
       <div>
-        <Helmet title='首页' meta={[
+        <Helmet title='首页1' meta={[
           {
             'name': 'description',
             'content': 'test application'

@@ -11,6 +11,8 @@ import routes from './routes'
 import webpack from '../webpack'
 import createRoutes from '../src/routes'
 
+global.__DEV__ = true
+
 const debug = Debug('app:server:main')
 const app = new Koa()
 

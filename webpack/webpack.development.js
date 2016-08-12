@@ -4,6 +4,7 @@ const precss = require('precss')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
+const localIdentName = require('./constants').localIdentName
 
 const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr'
 
@@ -61,7 +62,7 @@ module.exports = {
       loaders: [
         'style?sourceMap',
         'css?sourceMap&modules&importLoaders=1&' +
-        'localIdentName=[path]_[name]_[local]_[hash:base64:5]!postcss-loader!less?sourceMap'
+        'localIdentName=' + localIdentName + '!postcss-loader!less?sourceMap'
       ]
     }]
   },

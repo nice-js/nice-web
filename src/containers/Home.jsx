@@ -7,7 +7,6 @@ import * as blogsActions from '../actions/blogs'
 class HomeConatiner extends Component {
 
   static fetchData({store, params, location}) {
-    console.log(location.query)
     return store.dispatch(blogsActions.fetchBlogs())
   }
 
