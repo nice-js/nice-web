@@ -9,9 +9,9 @@ import createMemoryHistory from 'history/lib/createMemoryHistory'
 import configureStore from '../src/store/configureStore'
 import routes from './routes'
 import webpack from '../webpack'
-import createRoutes from '../src/routes'
-
-global.__DEV__ = true
+import {
+  renderRoutes
+} from '../src/routes'
 
 const debug = Debug('app:server:main')
 const app = new Koa()
@@ -39,7 +39,7 @@ app.context.render = render({
 
 // apply react server render
 const history = createMemoryHistory()
-app.use(reactReduxServerRender(createRoutes(history), () => {
+app.use(reactReduxServerRender(renderRoutes(history), () => {
   return configureStore({}, history)
 }, function* (models) {
   yield this.render('index', models)

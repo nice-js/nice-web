@@ -7,7 +7,7 @@ import {syncHistoryWithStore} from 'react-router-redux'
 
 import promiseES6 from 'promise-es6'
 import configureStore from './store/configureStore'
-import routes from './routes'
+import {renderRoutes} from './routes'
 
 // ========================================================
 // promise install
@@ -37,5 +37,5 @@ const history = syncHistoryWithStore(browserHistory, store)
 const MOUNT_NODE = document.getElementById('root')
 ReactDOM.render(
   <Provider store={store}>
-  {routes(history)}
+  {renderRoutes(history)}
 </Provider>, MOUNT_NODE)
